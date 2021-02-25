@@ -8,6 +8,7 @@ public class CameraZoom : MonoBehaviour
     private float targetZoom;
     private float zoomFactor = 3f;
     private float zoomLerpSpeed = 10;
+    private float initialDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -24,22 +25,30 @@ public class CameraZoom : MonoBehaviour
         Touch touchZero = Input.GetTouch(0);
         Touch touchOne = Input.GetTouch(1);
 
-        //store the initial positions
-        Vector2 touchZeroOriginalPosition = touchZero.position - touchZero.deltaPosition;
-        Vector2 touchOneOriginalPosition = touchOne.position - touchOne.deltaPosition;
-        
         float touchDataInitial = Vector2.Distance(touchZero.position, touchOne.position);
         float touchDataUpdated;
 
+        if (touchZero.phase == TouchPhase.Ended || touchZero.phase == TouchPhase.Canceled
+                    || touchOne.phase == TouchPhase.Ended || touchOne.phase == TouchPhase.Canceled)
+        {
+            return;
+        }
+
+
         if (touchZero.phase == TouchPhase.Ended || touchOne.phase == TouchPhase.Began)
+        {
+            initialDistance = Vector2.Distance(touchZero.position, touchOne.position);
+        }
+        else
         {
             Debug.Log("Doing camera zoom stuff");
             touchDataUpdated = Vector2.Distance(touchZero.position, touchOne.position);
-            touchDataUpdated = touchDataUpdated/1000;
+            touchDataUpdated = touchDataUpdated - initialDistance;
             Debug.Log("touch data updated = " + touchDataUpdated);
+            Debug.Log("zoom factor is: " + zoomFactor);
             targetZoom -= touchDataUpdated * zoomFactor;
             Debug.Log("target zoom is: " + targetZoom);
-            targetZoom = Mathf.Clamp(targetZoom, 4.5f, 8f);
+            targetZoom = Mathf.Clamp(targetZoom, 4.5f, 8f);     //clamp stops it doing its best impression of team rocket when they lose
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
         }
     }

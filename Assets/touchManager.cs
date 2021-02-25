@@ -142,9 +142,6 @@ public class touchManager : MonoBehaviour
                 Touch touchZero = Input.GetTouch(0);
                 Touch touchOne = Input.GetTouch(1);
 
-                //store the initial positions
-                Vector2 touchZeroOriginalPosition = touchZero.position - touchZero.deltaPosition;
-                Vector2 touchOneOriginalPosition = touchOne.position - touchOne.deltaPosition;
 
                 if(touchZero.phase == TouchPhase.Ended || touchZero.phase == TouchPhase.Canceled
                     || touchOne.phase == TouchPhase.Ended || touchOne.phase == TouchPhase.Canceled)
