@@ -9,6 +9,7 @@ public class CameraZoom : MonoBehaviour
     private float zoomFactor = 3f;
     private float zoomLerpSpeed = 10;
     private float initialDistance;
+    Vector3 touchstart;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,6 @@ public class CameraZoom : MonoBehaviour
         Touch touchZero = Input.GetTouch(0);
         Touch touchOne = Input.GetTouch(1);
 
-        float touchDataInitial = Vector2.Distance(touchZero.position, touchOne.position);
         float touchDataUpdated;
 
         if (touchZero.phase == TouchPhase.Ended || touchZero.phase == TouchPhase.Canceled
@@ -50,6 +50,20 @@ public class CameraZoom : MonoBehaviour
             Debug.Log("target zoom is: " + targetZoom);
             targetZoom = Mathf.Clamp(targetZoom, 4.5f, 8f);     //clamp stops it doing its best impression of team rocket when they lose
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
+        }
+
+
+
+        //camera strafe
+        if(Input.GetMouseButtonDown(0))
+        {
+            touchstart = cam.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+        }
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 camDir = touchstart - cam.ScreenToWorldPoint(Input.GetTouch(0).position);
+            cam.transform.position += camDir;
         }
     }
 }
