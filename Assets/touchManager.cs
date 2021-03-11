@@ -226,7 +226,7 @@ public class touchManager : MonoBehaviour
             }
         }
     }
-    private IEnumerator DelayForFive()
+    private IEnumerator DelayForFive()      //was initially used in the camera zoom when i was adjusting the FOV rather than actually zooming, not used anymore but the implementation is good, leaving it here in case i want it later
     {
         yield return new WaitForSeconds(5f);
         Camera.main.fieldOfView = storedFOV;

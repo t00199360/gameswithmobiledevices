@@ -14,7 +14,7 @@ public class CameraZoom : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main;
+        cam = Camera.main;      //renaming just saves a bit of time typing out Camera.main every time
         targetZoom = cam.orthographicSize;
     }
 
