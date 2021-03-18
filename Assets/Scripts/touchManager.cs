@@ -60,7 +60,8 @@ public class touchManager : MonoBehaviour
                 //selectedObject.MoveTo(new_position_ray.GetPoint(starting_distance_to_selected_object));
                 break;
             case TouchPhase.Ended:
-
+                selectedObject.gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
+                selectedObject = null;
                 break;
         }
         //follow floor, is being interfered with by another method
