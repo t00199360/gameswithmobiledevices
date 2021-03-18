@@ -5,7 +5,7 @@ Accelerometer/gyroscope is quite sensitive to use with some of the other feature
 
 There is a plane instanciated through code for demonstration purposes.
 
-Selected object is indicated by the object turning red when it is being interacted with
+Selected object is indicated by the object turning red when it is being interacted with and reverts to being grey when it is no longer the selected object.
 
 two finger rotation is shown on the cube
 
